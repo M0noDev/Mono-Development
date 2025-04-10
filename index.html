@@ -24,7 +24,7 @@
       position: relative;
     }
 
-    /* HEADER: Centered Logo Above LLC Name and Navigation */
+    /* HEADER: Centered Logo and Navigation */
     header {
       display: flex;
       flex-direction: column;
@@ -45,7 +45,7 @@
       margin-bottom: 8px;
     }
     .logo {
-      width: 70px;  /* Increased size for the logo */
+      width: 70px;
       margin-bottom: 6px;
     }
     .logo-text {
@@ -84,7 +84,7 @@
 
     /* Main Content */
     .container {
-      padding: 100px 20px 80px; /* Extra top padding to account for header */
+      padding: 100px 20px 80px;
       text-align: center;
       margin-top: 100px;
     }
@@ -170,6 +170,7 @@
       gap: 1rem;
     }
     .login-fields input {
+      box-sizing: border-box; /* Added to ensure padding and border do not overflow */
       width: 100%;
       padding: 0.75rem;
       border: 1px solid #555;
@@ -231,7 +232,7 @@
   </style>
 </head>
 <body class="dark">
-  <!-- HEADER: Logo and Centered Navigation -->
+  <!-- HEADER: Centered Logo and Navigation -->
   <header>
     <div class="logo-container">
       <img src="https://raw.githubusercontent.com/M0noDev/Mono-Development/refs/heads/main/Mono%20Logo.png" alt="Logo" class="logo">
@@ -292,11 +293,11 @@
   </div>
 
   <script>
-    // Open the login modal
+    // Function to open the login modal
     function openLogin() {
       document.getElementById('loginOverlay').classList.add('active');
     }
-    // Close the login modal
+    // Function to close the login modal
     function closeLogin() {
       document.getElementById('loginOverlay').classList.remove('active');
     }
