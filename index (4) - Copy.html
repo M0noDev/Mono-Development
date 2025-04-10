@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Under Construction - Mono Development LLC</title>
+  <link rel="icon" href="https://raw.githubusercontent.com/darkresident55/TreronDevelopmentLLC./main/TreronIcons/Treron%20Logo.png" type="image/png">
+  <style>
+    /* Dark Theme Variables */
+    :root {
+      --background: 0, 0%, 0%;
+      --foreground: 0, 0%, 100%;
+      --muted-foreground: 0, 0%, 70%;
+      --primary: 214, 100%, 60%;
+    }
+
+    /* Global Styles */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: hsl(var(--background));
+      color: hsl(var(--foreground));
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Header with Logo & Navigation */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: hsl(var(--background));
+      z-index: 100;
+      border-bottom: 1px solid hsla(0, 0%, 33%, 0.5);
+    }
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+    .logo {
+      width: 50px;
+      margin-right: 10px;
+    }
+    .logo-text {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li a {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 20px;
+      background-color: transparent;
+      color: hsl(var(--muted-foreground));
+      text-decoration: none;
+      transition: background-color 0.2s, box-shadow 0.2s, color 0.2s;
+    }
+    nav ul li a:hover {
+      background-color: #222;
+      color: hsl(var(--foreground));
+      box-shadow: 0 0 0 2px #444;
+    }
+    nav ul li a:active {
+      background-color: #444;
+      box-shadow: 0 0 0 2px #666;
+    }
+    nav ul li a:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px hsl(var(--primary));
+    }
+
+    /* Main Content */
+    .container {
+      padding: 80px 20px 80px;
+      text-align: center;
+      margin-top: 70px; /* Allow for fixed header */
+    }
+    .container h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    .container p {
+      margin: 10px 0;
+    }
+    .privacy-button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 20px;
+      background-color: #555;
+      color: hsl(var(--foreground));
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background-color 0.2s;
+    }
+    .privacy-button:hover {
+      background-color: #777;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9em;
+      opacity: 0.8;
+      padding: 10px 0;
+    }
+
+    /* LOGIN MODAL SECTION */
+
+    /* Overlay that blurs the background */
+    .login-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .login-overlay.active {
+      display: flex;
+    }
+
+    /* Login Modal Card */
+    .login-card {
+      position: relative;
+      width: 320px;
+      background-color: #1c1c1c;
+      border-radius: 16px;
+      padding: 2rem 1rem 1.5rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+      color: hsl(var(--foreground));
+      text-align: center;
+    }
+
+    /* Profile Icon Outline (created using inline SVG geometry) */
+    .login-icon {
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 80px;
+    }
+    .login-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Login Form Fields */
+    .login-fields {
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .login-fields input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #555;
+      border-radius: 8px;
+      background-color: #2a2a2a;
+      color: hsl(var(--foreground));
+      font-size: 1rem;
+      outline: none;
+    }
+
+    /* Login Options (Remember me & Forgot Password) */
+    .login-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: #aaa;
+      margin-top: 10px;
+    }
+    .login-options a {
+      text-decoration: none;
+      color: #aaa;
+    }
+    .login-options a:hover {
+      text-decoration: underline;
+    }
+
+    /* Login Button */
+    .login-button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 8px;
+      background: #333;
+      color: hsl(var(--foreground));
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .login-button:hover {
+      background: #444;
+    }
+
+    /* Close Button (X) */
+    .login-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: #aaa;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    .login-close:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body class="dark">
+  <!-- HEADER with Logo & Navigation -->
+  <header>
+    <div class="logo-container">
+      <img src="https://raw.githubusercontent.com/darkresident55/TreronDevelopmentLLC./main/TreronIcons/Treron%20Logo.png" alt="Logo" class="logo">
+      <span class="logo-text">Mono Development LLC</span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Notifications</a></li>
+        <li><a href="#">Settings</a></li>
+        <!-- Clicking this link triggers the login modal -->
+        <li><a href="#" id="loginLink">Log in</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT AREA -->
+  <div class="container">
+    <h1>Website Under Construction</h1>
+    <p><strong>Effective Date:</strong> February 6th, 2025</p>
+    <p>
+      We are working hard to improve our website to provide you with a better experience.
+      If you plan to create an account, we recommend waiting until the site is fully operational.
+    </p>
+    <p>Please refer to our Privacy and Safety information:</p>
+    <a href="https://trerondevelopment.xyz/Privacy-and-Safety-Finished" target="_blank" class="privacy-button">Privacy and Safety</a>
+  </div>
+
+  <footer>
+    &copy; 2023-2025 | Mono Development LLC™
+  </footer>
+
+  <!-- LOGIN MODAL (Overlay + Card) -->
+  <div class="login-overlay" id="loginOverlay">
+    <div class="login-card">
+      <!-- Profile Icon Outline using Geometry -->
+      <div class="login-icon">
+        <svg viewBox="0 0 64 64">
+          <!-- Head Circle -->
+          <circle cx="32" cy="20" r="12" stroke="#fff" stroke-width="2" fill="none" />
+          <!-- Shoulders curve -->
+          <path d="M16,52 C16,38 48,38 48,52" stroke="#fff" stroke-width="2" fill="none" />
+        </svg>
+      </div>
+      <!-- Close Button -->
+      <button class="login-close" onclick="closeLogin()">✕</button>
+      <!-- Login Form Fields -->
+      <div class="login-fields">
+        <input type="text" placeholder="Email ID" />
+        <input type="password" placeholder="Password" />
+      </div>
+      <div class="login-options">
+        <label><input type="checkbox" /> Remember me</label>
+        <a href="#">Forgot Password?</a>
+      </div>
+      <button class="login-button">LOGIN</button>
+    </div>
+  </div>
+
+  <script>
+    // Function to open the login modal
+    function openLogin() {
+      document.getElementById('loginOverlay').classList.add('active');
+    }
+    // Function to close the login modal
+    function closeLogin() {
+      document.getElementById('loginOverlay').classList.remove('active');
+    }
+    // Attach event listener to the "Log in" navigation link
+    document.getElementById('loginLink').addEventListener('click', function(e) {
+      e.preventDefault();
+      openLogin();
+    });
+    // Close modal if clicking on the overlay background
+    document.getElementById('loginOverlay').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeLogin();
+      }
+    });
+  </script>
+</body>
+</html>
